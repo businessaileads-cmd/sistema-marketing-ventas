@@ -251,13 +251,7 @@ function RegistrationForm({onSubmit, initialData}) {
         </p>
         <div style={{textAlign:'center', marginTop:16, display:'flex', alignItems:'center', justifyContent:'center', gap:6}}>
           <span style={{fontSize:11, color:C.gray}}>Desarrollado por</span>
-          <svg viewBox="0 0 120 50" style={{width:70,height:30}}>
-            <path d="M10 38C10 38 6 38 5 33C4 28 7 18 12 14C17 10 22 12 24 16L32 34C32 34 34 40 30 42C26 44 22 36 20 30L14 18" fill="none" stroke={C.grayLight} strokeWidth="3.5" strokeLinecap="round"/>
-            <path d="M24 16L32 34C34 40 38 42 40 38L48 10" fill="none" stroke={C.grayLight} strokeWidth="3.5" strokeLinecap="round"/>
-            <circle cx="46" cy="6" r="2.5" fill={C.grayLight}/>
-            <text x="55" y="23" fill={C.grayLight} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">BUSINESS</text>
-            <text x="55" y="33" fill={C.grayLight} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">GROWTH</text>
-          </svg>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/dGHJkt1tVLPcTSFvaxx5/media/67c8ac9b-7108-4995-9787-c2de356939be.png" alt="AI Business Growth" style={{width:80,height:40,filter:'invert(1)',objectFit:'contain'}} />
         </div>
       </div>
     </div>
@@ -777,35 +771,25 @@ function PlanGuerraTab({planGuerra, setPlanGuerra}) {
 // ============================================================
 function CalendarTab() {
   return (
-    <div>
-      <div style={{marginBottom:20}}>
-        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:4}}>
-          <Icon type="calendar" size={22} color={C.gold}/>
-          <h2 style={{fontSize:20,fontWeight:700,color:C.white,margin:0}}>Agenda tu Sesion Estrategica con Rick</h2>
+      <div>
+        <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:24}}>
+          <span style={{fontSize:28}}>📅</span>
+          <div>
+            <h2 style={{margin:0,fontSize:22,fontWeight:700}}>Agendar Sesion Estrategica</h2>
+            <p style={{margin:0,color:'#8B949E',fontSize:14}}>Agenda tu sesion de marketing con Ricardo Salguero</p>
+          </div>
         </div>
-        <p style={{fontSize:13,color:C.gray,marginLeft:32}}>Selecciona un horario disponible para tu sesion de estrategia personalizada</p>
+        <div style={{background:'#161B22',borderRadius:12,border:'1px solid #30363D',padding:32,textAlign:'center'}}>
+          <div style={{fontSize:48,marginBottom:16}}>🗓️</div>
+          <h3 style={{margin:'0 0 8px',fontSize:20,color:'#E6EDF3'}}>Sesion Estrategica de Marketing</h3>
+          <p style={{color:'#8B949E',marginBottom:24,maxWidth:500,margin:'0 auto 24px'}}>Reserva una sesion personalizada para analizar tu estrategia de marketing y ventas con IA.</p>
+          <a href="https://vendemasconai.com/" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'14px 32px',background:'linear-gradient(135deg,#D4A017,#F4C542)',color:'#000',borderRadius:8,fontWeight:700,fontSize:16,textDecoration:'none',cursor:'pointer'}}>
+            📅 Agendar Ahora
+          </a>
+          <p style={{color:'#6E7681',fontSize:12,marginTop:16}}>Seras redirigido a nuestro calendario de reservas</p>
+        </div>
       </div>
-      <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,overflow:'hidden',marginBottom:24}}>
-        <iframe src={CALENDAR_EMBED_URL} style={{width:'100%', height:700, border:'none', borderRadius:12}} scrolling="no" />
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  const [tab,setTab]=useState('config');
-  const [metrics,setMetrics]=useState({facturacion:16200,alcance:55000,leads:420,prospectos:145,llamadas:65,cierres:18,inversionMarketing:1770,contenidoPublicado:28});
-  const [goals,setGoals]=useState({metaFacturacion:20000,metaLeads:500,metaCierres:25});
-  const [profile, setProfile] = useState(null);
-  const [showRegistration, setShowRegistration] = useState(false);
-  const [planGuerra, setPlanGuerra] = useState({
-    identidadCreador: '',
-    clienteIdeal: '',
-    avatarProfile: '',
-    cuadrante1: '',
-    cuadrante2: '',
-    cuadrante3: '',
-    cuadrante4: ''
+    );
   });
 
   // Load from localStorage on mount
@@ -909,7 +893,7 @@ function App() {
         <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
           <span>Metodología Máquina del Dinero de Álvaro Luque</span>
           <span style={{color:C.border}}>·</span>
-          <span style={{display:'flex',alignItems:'center',gap:6}}>Desarrollado por <svg viewBox="0 0 100 50" style={{width:80,height:40,display:'inline-block',verticalAlign:'middle'}}><path d="M15 38C15 38 10 38 8 32C6 26 10 16 16 12C22 8 28 10 30 14L38 34C38 34 40 40 36 42C32 44 28 38 26 32L20 18" fill="none" stroke={C.white} strokeWidth="4" strokeLinecap="round"/><path d="M30 14L38 34C40 40 44 42 46 38L54 10" fill="none" stroke={C.white} strokeWidth="4" strokeLinecap="round"/><circle cx="52" cy="6" r="3" fill={C.white}/><text x="60" y="25" fill={C.white} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">BUSINESS</text><text x="60" y="35" fill={C.white} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">GROWTH</text></svg></span>
+          <span style={{display:'flex',alignItems:'center',gap:6}}>Desarrollado por <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/dGHJkt1tVLPcTSFvaxx5/media/67c8ac9b-7108-4995-9787-c2de356939be.png" alt="AI Business Growth" style={{height:40,filter:'invert(1)',objectFit:'contain'}} /></span>
         </div>
       </div>
     </div>
