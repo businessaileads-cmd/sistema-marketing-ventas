@@ -720,7 +720,7 @@ function PlanGuerraTab({planGuerra, setPlanGuerra}) {
           <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>Tu Identidad como Creador</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Define tu voz, tu estilo, tu propuesta de valor unica</p></div>
         </div>
         <label style={{fontSize:12,color:C.gold,fontWeight:600,display:'block',marginBottom:8}}>Quien eres como creador de contenido?</label>
-        <textarea value={planGuerra.identidadCreador} onChange={v=>updatePG('identidadCreador',v)} placeholder="Describe tu voz, tu estilo, tu propuesta de valor unica como creador..."/>
+        <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.identidadCreador} onChange={v=>updatePG('identidadCreador',v)} placeholder="Describe tu voz, tu estilo, tu propuesta de valor unica como creador..."/>
       </div>
       <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:24}}>
         <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
@@ -728,7 +728,7 @@ function PlanGuerraTab({planGuerra, setPlanGuerra}) {
           <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>Tu Cliente Ideal</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Describe a tu cliente ideal con el mayor detalle posible</p></div>
         </div>
         <label style={{fontSize:12,color:C.blue,fontWeight:600,display:'block',marginBottom:8}}>Describe a tu cliente ideal</label>
-        <textarea value={planGuerra.clienteIdeal} onChange={v=>updatePG('clienteIdeal',v)} placeholder="Edad, genero, problemas, deseos, ingresos, ubicacion, habitos de consumo..."/>
+        <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.clienteIdeal} onChange={v=>updatePG('clienteIdeal',v)} placeholder="Edad, genero, problemas, deseos, ingresos, ubicacion, habitos de consumo..."/>
       </div>
       <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:24}}>
         <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
@@ -742,7 +742,7 @@ function PlanGuerraTab({planGuerra, setPlanGuerra}) {
           </a>
         </div>
         <label style={{fontSize:12,color:C.purple,fontWeight:600,display:'block',marginBottom:8}}>Pega aqui el resultado de tu Avatar Profile</label>
-        <textarea value={planGuerra.avatarProfile} onChange={v=>updatePG('avatarProfile',v)} placeholder="Copia y pega aqui el resultado generado por el GPT..."/>
+        <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.avatarProfile} onChange={v=>updatePG('avatarProfile',v)} placeholder="Copia y pega aqui el resultado generado por el GPT..."/>
       </div>
       <div style={{marginBottom:24}}>
         <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
@@ -752,19 +752,19 @@ function PlanGuerraTab({planGuerra, setPlanGuerra}) {
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
           <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
             <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.gold}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Autoridad</h4></div>
-            <textarea value={planGuerra.cuadrante1} onChange={v=>updatePG('cuadrante1',v)} placeholder="Tus ideas de contenido de autoridad..."/>
+            <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.cuadrante1} onChange={v=>updatePG('cuadrante1',v)} placeholder="Tus ideas de contenido de autoridad..."/>
           </div>
           <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
             <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.blue}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Conexion</h4></div>
-            <textarea value={planGuerra.cuadrante2} onChange={v=>updatePG('cuadrante2',v)} placeholder="Tus ideas de contenido de conexion..."/>
+            <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.cuadrante2} onChange={v=>updatePG('cuadrante2',v)} placeholder="Tus ideas de contenido de conexion..."/>
           </div>
           <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
             <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.green}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Conversion</h4></div>
-            <textarea value={planGuerra.cuadrante3} onChange={v=>updatePG('cuadrante3',v)} placeholder="Tus ideas de contenido de conversion..."/>
+            <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.cuadrante3} onChange={v=>updatePG('cuadrante3',v)} placeholder="Tus ideas de contenido de conversion..."/>
           </div>
           <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
             <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.purple}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Comunidad</h4></div>
-            <textarea value={planGuerra.cuadrante4} onChange={v=>updatePG('cuadrante4',v)} placeholder="Tus ideas de contenido de comunidad..."/>
+            <textarea style={{width:"100%",minHeight:"80px",padding:"12px",background:"#1C2333",color:"#E6EDF3",border:"1px solid #30363D",borderRadius:"8px",fontFamily:"inherit",fontSize:"14px",resize:"vertical"}} value={planGuerra.cuadrante4} onChange={v=>updatePG('cuadrante4',v)} placeholder="Tus ideas de contenido de comunidad..."/>
           </div>
         </div>
       </div>
