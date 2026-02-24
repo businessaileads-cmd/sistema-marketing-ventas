@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+const CALENDAR_EMBED_URL = 'https://api.leadconnectorhq.com/widget/booking/ai-growth-calendar';
+const CALENDAR_URL = 'https://vendemasconai.com/';
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -692,12 +694,118 @@ function ScorecardTab() {
 // ============================================================
 // MAIN APP
 // ============================================================
+
+// ============================================================
+// TAB: PLAN DE GUERRA
+// ============================================================
+function PlanGuerraTab({planGuerra, setPlanGuerra}) {
+  const updatePG = (key, value) => {
+    const newPG = {...planGuerra, [key]: value};
+    setPlanGuerra(newPG);
+    localStorage.setItem('mdm_plan_guerra', JSON.stringify(newPG));
+  };
+  return (
+    <div>
+      <div style={{marginBottom:20}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:4}}>
+          <Icon type="megaphone" size={22} color={C.gold}/>
+          <h2 style={{fontSize:20,fontWeight:700,color:C.white,margin:0}}>Tu Plan de Guerra</h2>
+        </div>
+        <p style={{fontSize:13,color:C.gray,marginLeft:32}}>Define tu estrategia de contenido y posicionamiento.</p>
+      </div>
+      <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:24}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+          <div style={{background:`${C.gold}20`,borderRadius:8,padding:8}}><Icon type="users" size={20} color={C.gold}/></div>
+          <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>Tu Identidad como Creador</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Define tu voz, tu estilo, tu propuesta de valor unica</p></div>
+        </div>
+        <label style={{fontSize:12,color:C.gold,fontWeight:600,display:'block',marginBottom:8}}>Quien eres como creador de contenido?</label>
+        <TextArea value={planGuerra.identidadCreador} onChange={v=>updatePG('identidadCreador',v)} placeholder="Describe tu voz, tu estilo, tu propuesta de valor unica como creador..."/>
+      </div>
+      <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:24}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+          <div style={{background:`${C.blue}20`,borderRadius:8,padding:8}}><Icon type="target" size={20} color={C.blue}/></div>
+          <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>Tu Cliente Ideal</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Describe a tu cliente ideal con el mayor detalle posible</p></div>
+        </div>
+        <label style={{fontSize:12,color:C.blue,fontWeight:600,display:'block',marginBottom:8}}>Describe a tu cliente ideal</label>
+        <TextArea value={planGuerra.clienteIdeal} onChange={v=>updatePG('clienteIdeal',v)} placeholder="Edad, genero, problemas, deseos, ingresos, ubicacion, habitos de consumo..."/>
+      </div>
+      <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:24,marginBottom:24}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+          <div style={{background:`${C.purple}20`,borderRadius:8,padding:8}}><Icon type="award" size={20} color={C.purple}/></div>
+          <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>GPT Avatar Profile</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Usa nuestro GPT para crear tu Avatar de Cliente ideal</p></div>
+        </div>
+        <div style={{background:C.bgDark,border:`1px solid ${C.border}`,borderRadius:12,padding:16,marginBottom:16}}>
+          <p style={{fontSize:13,color:C.grayLight,marginBottom:12}}>Usa este GPT para crear tu Avatar de Cliente con el Perfilador FBI Elite.</p>
+          <a href="https://chatgpt.com/g/g-699d6f56f468819180d6eb525ffbac56" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:8,background:`${C.purple}20`,border:`1px solid ${C.purple}40`,borderRadius:8,padding:'10px 16px',color:C.purple,fontSize:13,fontWeight:600,cursor:'pointer',textDecoration:'none'}}>
+            <Icon type="msg" size={16} color={C.purple}/> Abrir GPT Avatar Profile
+          </a>
+        </div>
+        <label style={{fontSize:12,color:C.purple,fontWeight:600,display:'block',marginBottom:8}}>Pega aqui el resultado de tu Avatar Profile</label>
+        <TextArea value={planGuerra.avatarProfile} onChange={v=>updatePG('avatarProfile',v)} placeholder="Copia y pega aqui el resultado generado por el GPT..."/>
+      </div>
+      <div style={{marginBottom:24}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+          <div style={{background:`${C.gold}20`,borderRadius:8,padding:8}}><Icon type="layers" size={20} color={C.gold}/></div>
+          <div><h3 style={{fontSize:16,fontWeight:600,color:C.white,margin:0}}>4 Cuadrantes de Contenido</h3><p style={{fontSize:12,color:C.gray,margin:0}}>Estrategia de contenido balanceada</p></div>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
+            <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.gold}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Autoridad</h4></div>
+            <TextArea value={planGuerra.cuadrante1} onChange={v=>updatePG('cuadrante1',v)} placeholder="Tus ideas de contenido de autoridad..."/>
+          </div>
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
+            <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.blue}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Conexion</h4></div>
+            <TextArea value={planGuerra.cuadrante2} onChange={v=>updatePG('cuadrante2',v)} placeholder="Tus ideas de contenido de conexion..."/>
+          </div>
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
+            <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.green}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Conversion</h4></div>
+            <TextArea value={planGuerra.cuadrante3} onChange={v=>updatePG('cuadrante3',v)} placeholder="Tus ideas de contenido de conversion..."/>
+          </div>
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:20}}>
+            <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}><span style={{display:'inline-block',width:12,height:12,borderRadius:'50%',background:C.purple}}/><h4 style={{fontSize:14,fontWeight:600,color:C.white,margin:0}}>Contenido de Comunidad</h4></div>
+            <TextArea value={planGuerra.cuadrante4} onChange={v=>updatePG('cuadrante4',v)} placeholder="Tus ideas de contenido de comunidad..."/>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TAB: CALENDARIO
+// ============================================================
+function CalendarTab() {
+  return (
+    <div>
+      <div style={{marginBottom:20}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:4}}>
+          <Icon type="calendar" size={22} color={C.gold}/>
+          <h2 style={{fontSize:20,fontWeight:700,color:C.white,margin:0}}>Agenda tu Sesion Estrategica con Rick</h2>
+        </div>
+        <p style={{fontSize:13,color:C.gray,marginLeft:32}}>Selecciona un horario disponible para tu sesion de estrategia personalizada</p>
+      </div>
+      <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,overflow:'hidden',marginBottom:24}}>
+        <iframe src={CALENDAR_EMBED_URL} style={{width:'100%', height:700, border:'none', borderRadius:12}} scrolling="no" />
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [tab,setTab]=useState('config');
   const [metrics,setMetrics]=useState({facturacion:16200,alcance:55000,leads:420,prospectos:145,llamadas:65,cierres:18,inversionMarketing:1770,contenidoPublicado:28});
   const [goals,setGoals]=useState({metaFacturacion:20000,metaLeads:500,metaCierres:25});
   const [profile, setProfile] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
+  const [planGuerra, setPlanGuerra] = useState({
+    identidadCreador: '',
+    clienteIdeal: '',
+    avatarProfile: '',
+    cuadrante1: '',
+    cuadrante2: '',
+    cuadrante3: '',
+    cuadrante4: ''
+  });
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -713,6 +821,11 @@ function App() {
       const saved = JSON.parse(savedMetrics);
       if (saved.metrics) setMetrics(saved.metrics);
       if (saved.goals) setGoals(saved.goals);
+    }
+
+    const savedPlanGuerra = localStorage.getItem('mdm_plan_guerra');
+    if (savedPlanGuerra) {
+      setPlanGuerra(JSON.parse(savedPlanGuerra));
     }
   }, []);
 
@@ -754,10 +867,12 @@ function App() {
   const firstName = profile.nombreCompleto.split(' ')[0];
   const tabs=[
     {k:'config',l:'Mi Negocio',i:'settings'},
+    {k:'planGuerra',l:'Plan de Guerra',i:'megaphone'},
     {k:'dashboard',l:'Dashboard',i:'bar'},
     {k:'embudo',l:'Embudo',i:'layers'},
     {k:'calculadora',l:'Calculadora',i:'calc'},
-    {k:'scorecard',l:'Scorecard',i:'target'}
+    {k:'scorecard',l:'Scorecard',i:'target'},
+    {k:'calendario',l:'Agendar',i:'calendar'}
   ];
 
   return (
@@ -782,10 +897,12 @@ function App() {
       </div>
       <div style={{padding:'28px 32px',maxWidth:1320,margin:'0 auto'}}>
         {tab==='config'&&<ConfigTab metrics={metrics} setMetrics={setMetrics} goals={goals} setGoals={setGoals} profile={profile} setShowRegistration={setShowRegistration} setProfile={setProfile}/>}
+        {tab==='planGuerra'&&<PlanGuerraTab planGuerra={planGuerra} setPlanGuerra={setPlanGuerra}/>}
         {tab==='dashboard'&&<DashboardTab metrics={metrics} goals={goals}/>}
         {tab==='embudo'&&<EmbudoTab metrics={metrics} setMetrics={setMetrics}/>}
         {tab==='calculadora'&&<CalcTab/>}
         {tab==='scorecard'&&<ScorecardTab/>}
+        {tab==='calendario'&&<CalendarTab/>}
       </div>
       <div style={{borderTop:`1px solid ${C.border}`,padding:'14px 32px',textAlign:'center',fontSize:11,color:C.gray}}>
         <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
