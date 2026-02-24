@@ -10,7 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
-    <script src="https://unpkg.com/recharts@2.10.3/umd/Recharts.js"></script>
+  <script src="https://unpkg.com/recharts@2.10.3/umd/Recharts.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js"></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -25,11 +25,11 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useMemo } = React;
+const { useState, useMemo, useEffect } = React;
 const { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
 
 // ============================================================
-// CONSTANTES
+// CONSTANTES & CONFIG
 // ============================================================
 const C = {
   gold:"#D4A017", dark:"#1A1A2E", darkMid:"#16213E", darkLight:"#0F3460",
@@ -37,6 +37,21 @@ const C = {
   blue:"#4A90D9", purple:"#8B5CF6", gray:"#94A3B8", grayLight:"#CBD5E1",
   white:"#FFFFFF", bgDark:"#0D1117", bgCard:"#161B22", border:"#30363D"
 };
+
+const GHL_WEBHOOK_URL = ''; // Set to your webhook URL
+
+const latinAmericanCountries = [
+  'Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica',
+  'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guyana', 'Honduras',
+  'Jamaica', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú',
+  'República Dominicana', 'Surinam', 'Uruguay', 'Venezuela', 'Estados Unidos', 'España'
+];
+
+const industriaOptions = [
+  'Salud/Medicina', 'Fitness/Gimnasio', 'Restaurante/Alimentos', 'Educación',
+  'Servicios Profesionales', 'E-commerce', 'Bienes Raíces', 'Belleza/Estética',
+  'Tecnología', 'Marketing/Publicidad', 'Otro'
+];
 
 // ============================================================
 // SVG ICONS (inline para no depender de lucide)
@@ -66,6 +81,7 @@ const Icon = ({type, size=18, color=C.gray}) => {
     plus: <svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
     trash: <svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>,
     globe: <svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+    logOut: <svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
   };
   return icons[type] || null;
 };
@@ -108,12 +124,230 @@ function NumInput({value,onChange,width}) {
   return <input type="number" value={value} onChange={e=>onChange(Number(e.target.value)||0)} style={{background:C.bgDark,border:`1px solid ${C.border}`,borderRadius:8,padding:'10px 14px',color:C.white,fontSize:16,fontWeight:600,width:width||'100%',textAlign:'right',outline:'none',boxSizing:'border-box'}}/>;
 }
 
+function TextInput({value,onChange,width,placeholder}) {
+  return <input type="text" value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} style={{background:C.bgDark,border:`1px solid ${C.border}`,borderRadius:8,padding:'10px 14px',color:C.white,fontSize:14,fontWeight:500,width:width||'100%',outline:'none',boxSizing:'border-box'}}/>;
+}
+
+// ============================================================
+// REGISTRATION FORM
+// ============================================================
+function RegistrationForm({onSubmit, initialData}) {
+  const [form, setForm] = useState(initialData || {
+    nombreCompleto: '',
+    email: '',
+    telefonoWhatsapp: '',
+    instagramHandle: '',
+    nombreEmpresa: '',
+    industria: 'Otro',
+    ciudad: '',
+    pais: 'Colombia',
+    descripcionNegocio: '',
+    facturacionMensual: ''
+  });
+
+  const handleChange = (field, value) => {
+    setForm(p => ({...p, [field]: value}));
+  };
+
+  const handleSubmit = () => {
+    if (!form.nombreCompleto || !form.email || !form.telefonoWhatsapp || !form.nombreEmpresa || !form.ciudad || !form.pais) {
+      alert('Por favor completa todos los campos requeridos (*).');
+      return;
+    }
+    onSubmit(form);
+  };
+
+  return (
+    <div style={{background:C.bgDark, minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'20px'}}>
+      <div style={{width:'100%', maxWidth:900}}>
+        {/* Logo/Branding */}
+        <div style={{textAlign:'center', marginBottom:40}}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:16,marginBottom:20}}>
+            <div style={{background:`linear-gradient(135deg,${C.gold},${C.orange})`, borderRadius:14, width:70, height:70, display:'flex', alignItems:'center', justifyContent:'center'}}>
+              <Icon type="zap" size={38} color={C.bgDark}/>
+            </div>
+            <svg viewBox="0 0 120 90" style={{width:100,height:75}}>
+              <path d="M15 68C15 68 8 68 6 58C4 48 10 30 20 24C30 18 38 22 42 28L54 62C54 62 58 72 52 76C46 80 40 68 36 58L26 34" fill="none" stroke={C.white} strokeWidth="6" strokeLinecap="round"/>
+              <path d="M42 28L54 62C58 72 64 76 68 68L82 18" fill="none" stroke={C.white} strokeWidth="6" strokeLinecap="round"/>
+              <circle cx="80" cy="10" r="5" fill={C.gold}/>
+              <text x="60" y="90" fill={C.gray} fontSize="11" fontWeight="700" fontFamily="Inter,sans-serif" textAnchor="middle">BUSINESS GROWTH</text>
+            </svg>
+          </div>
+          <h1 style={{fontSize:28, fontWeight:700, color:C.white, margin:0, marginBottom:8}}>Máquina del Dinero</h1>
+          <h2 style={{fontSize:20, fontWeight:600, color:C.gold, margin:0, marginBottom:12}}>Accede al Sistema de Marketing y Ventas</h2>
+          <p style={{fontSize:14, color:C.gray, margin:0}}>Completa tu perfil para acceder a las herramientas de la Máquina del Dinero</p>
+        </div>
+
+        {/* Form */}
+        <div style={{background:C.bgCard, border:`1px solid ${C.border}`, borderRadius:12, padding:32}}>
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Nombre Completo *</label>
+              <TextInput value={form.nombreCompleto} onChange={v=>handleChange('nombreCompleto',v)} placeholder="Tu nombre"/>
+            </div>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Email *</label>
+              <TextInput value={form.email} onChange={v=>handleChange('email',v)} placeholder="tu@email.com"/>
+            </div>
+          </div>
+
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Teléfono / WhatsApp *</label>
+              <TextInput value={form.telefonoWhatsapp} onChange={v=>handleChange('telefonoWhatsapp',v)} placeholder="+57 300 1234567"/>
+            </div>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Instagram Handle (opcional)</label>
+              <TextInput value={form.instagramHandle} onChange={v=>handleChange('instagramHandle',v)} placeholder="@tuinstagram"/>
+            </div>
+          </div>
+
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Nombre de la Empresa *</label>
+              <TextInput value={form.nombreEmpresa} onChange={v=>handleChange('nombreEmpresa',v)} placeholder="Tu empresa"/>
+            </div>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Industria / Sector *</label>
+              <select value={form.industria} onChange={e=>handleChange('industria',e.target.value)} style={{background:C.bgDark, border:`1px solid ${C.border}`, borderRadius:8, padding:'10px 14px', color:C.white, fontSize:14, fontWeight:500, width:'100%', outline:'none', boxSizing:'border-box'}}>
+                {industriaOptions.map(ind => <option key={ind} value={ind}>{ind}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Ciudad *</label>
+              <TextInput value={form.ciudad} onChange={v=>handleChange('ciudad',v)} placeholder="Tu ciudad"/>
+            </div>
+            <div>
+              <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>País *</label>
+              <select value={form.pais} onChange={e=>handleChange('pais',e.target.value)} style={{background:C.bgDark, border:`1px solid ${C.border}`, borderRadius:8, padding:'10px 14px', color:C.white, fontSize:14, fontWeight:500, width:'100%', outline:'none', boxSizing:'border-box'}}>
+                {latinAmericanCountries.map(p => <option key={p} value={p}>{p}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div style={{marginBottom:20}}>
+            <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Descripción breve del negocio (opcional)</label>
+            <textarea value={form.descripcionNegocio} onChange={e=>handleChange('descripcionNegocio',e.target.value)} placeholder="¿Qué haces?" style={{background:C.bgDark, border:`1px solid ${C.border}`, borderRadius:8, padding:'10px 14px', color:C.white, fontSize:14, fontWeight:500, width:'100%', outline:'none', boxSizing:'border-box', fontFamily:'inherit', minHeight:100, resize:'vertical'}}/>
+          </div>
+
+          <div style={{marginBottom:20}}>
+            <label style={{display:'block', fontSize:12, fontWeight:600, color:C.gold, marginBottom:8}}>Facturación mensual actual (opcional)</label>
+            <NumInput value={form.facturacionMensual} onChange={v=>handleChange('facturacionMensual',v)}/>
+          </div>
+
+          <button onClick={handleSubmit} style={{background:`linear-gradient(135deg,${C.gold},${C.orange})`, border:'none', borderRadius:8, padding:'12px 32px', fontSize:16, fontWeight:600, color:C.bgDark, cursor:'pointer', width:'100%', boxSizing:'border-box', transition:'all 0.3s'}}>
+            Acceder al Sistema
+          </button>
+        </div>
+
+        <p style={{textAlign:'center', fontSize:12, color:C.gray, marginTop:20}}>
+          Tu información está protegida. No compartimos datos con terceros.
+        </p>
+        <div style={{textAlign:'center', marginTop:16, display:'flex', alignItems:'center', justifyContent:'center', gap:6}}>
+          <span style={{fontSize:11, color:C.gray}}>Desarrollado por</span>
+          <svg viewBox="0 0 120 50" style={{width:70,height:30}}>
+            <path d="M10 38C10 38 6 38 5 33C4 28 7 18 12 14C17 10 22 12 24 16L32 34C32 34 34 40 30 42C26 44 22 36 20 30L14 18" fill="none" stroke={C.grayLight} strokeWidth="3.5" strokeLinecap="round"/>
+            <path d="M24 16L32 34C34 40 38 42 40 38L48 10" fill="none" stroke={C.grayLight} strokeWidth="3.5" strokeLinecap="round"/>
+            <circle cx="46" cy="6" r="2.5" fill={C.grayLight}/>
+            <text x="55" y="23" fill={C.grayLight} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">BUSINESS</text>
+            <text x="55" y="33" fill={C.grayLight} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">GROWTH</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============================================================
 // TAB: CONFIGURACIÓN
 // ============================================================
-function ConfigTab({metrics,setMetrics,goals,setGoals}) {
+function ConfigTab({metrics, setMetrics, goals, setGoals, profile, setShowRegistration, setProfile}) {
+  const [showEditProfile, setShowEditProfile] = useState(false);
+  const [expandProfile, setExpandProfile] = useState(false);
+
+  const handleProfileUpdate = (newProfile) => {
+    setProfile(newProfile);
+    localStorage.setItem('mdm_perfil', JSON.stringify(newProfile));
+    setShowEditProfile(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('mdm_perfil');
+    localStorage.removeItem('mdm_datos');
+    setShowRegistration(true);
+  };
+
+  if (showEditProfile) {
+    return <RegistrationForm onSubmit={handleProfileUpdate} initialData={profile}/>;
+  }
+
   return (
     <div>
+      {/* Perfil Section */}
+      <div style={{background:C.bgCard, border:`1px solid ${C.border}`, borderRadius:12, padding:20, marginBottom:24}}>
+        <div onClick={() => setExpandProfile(!expandProfile)} style={{display:'flex', justifyContent:'space-between', alignItems:'center', cursor:'pointer'}}>
+          <div style={{display:'flex', alignItems:'center', gap:12}}>
+            <div style={{background:`${C.gold}20`, borderRadius:8, padding:8}}>
+              <Icon type="users" size={20} color={C.gold}/>
+            </div>
+            <div>
+              <h3 style={{fontSize:16, fontWeight:600, color:C.white, margin:0}}>Tu Perfil</h3>
+              <p style={{fontSize:12, color:C.gray, margin:0}}>Información de tu negocio</p>
+            </div>
+          </div>
+          <Icon type="arrowDown" size={20} color={C.gold} style={{transform:expandProfile?'rotate(180deg)':'rotate(0deg)', transition:'transform 0.3s'}}/>
+        </div>
+
+        {expandProfile && (
+          <div style={{marginTop:20, paddingTop:20, borderTop:`1px solid ${C.border}`}}>
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>Nombre</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.nombreCompleto}</div>
+              </div>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>Email</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.email}</div>
+              </div>
+            </div>
+
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>Empresa</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.nombreEmpresa}</div>
+              </div>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>Industria</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.industria}</div>
+              </div>
+            </div>
+
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginBottom:20}}>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>Ciudad</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.ciudad}</div>
+              </div>
+              <div>
+                <div style={{fontSize:11, color:C.gray, fontWeight:500, marginBottom:4, textTransform:'uppercase'}}>País</div>
+                <div style={{fontSize:14, color:C.white, fontWeight:600}}>{profile.pais}</div>
+              </div>
+            </div>
+
+            <div style={{display:'flex', gap:12, marginTop:20}}>
+              <button onClick={() => setShowEditProfile(true)} style={{background:`${C.gold}20`, border:`1px solid ${C.gold}40`, borderRadius:8, padding:'8px 16px', color:C.gold, fontSize:13, fontWeight:600, cursor:'pointer'}}>
+                Editar Perfil
+              </button>
+              <button onClick={handleLogout} style={{background:`${C.red}20`, border:`1px solid ${C.red}40`, borderRadius:8, padding:'8px 16px', color:C.red, fontSize:13, fontWeight:600, cursor:'pointer', display:'flex', alignItems:'center', gap:6}}>
+                <Icon type="logOut" size={14} color={C.red}/> Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div style={{marginBottom:20}}><div style={{display:'flex',alignItems:'center',gap:10,marginBottom:4}}><Icon type="settings" size={22} color={C.gold}/><h2 style={{fontSize:20,fontWeight:700,color:C.white,margin:0}}>Configura Tu Máquina</h2></div><p style={{fontSize:13,color:C.gray,margin:0,marginLeft:32}}>Ingresa tus números reales y tus metas. Todo se actualiza automáticamente.</p></div>
       <LuqueTip title="Regla #1 de Luque:">Si no conoces tus números, no tienes un negocio — tienes un hobby caro. Llena cada campo con datos reales.</LuqueTip>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24}}>
@@ -462,6 +696,62 @@ function App() {
   const [tab,setTab]=useState('config');
   const [metrics,setMetrics]=useState({facturacion:16200,alcance:55000,leads:420,prospectos:145,llamadas:65,cierres:18,inversionMarketing:1770,contenidoPublicado:28});
   const [goals,setGoals]=useState({metaFacturacion:20000,metaLeads:500,metaCierres:25});
+  const [profile, setProfile] = useState(null);
+  const [showRegistration, setShowRegistration] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('mdm_perfil');
+    if (savedProfile) {
+      setProfile(JSON.parse(savedProfile));
+    } else {
+      setShowRegistration(true);
+    }
+
+    const savedMetrics = localStorage.getItem('mdm_datos');
+    if (savedMetrics) {
+      const saved = JSON.parse(savedMetrics);
+      if (saved.metrics) setMetrics(saved.metrics);
+      if (saved.goals) setGoals(saved.goals);
+    }
+  }, []);
+
+  // Auto-save metrics and goals
+  useEffect(() => {
+    if (profile) {
+      localStorage.setItem('mdm_datos', JSON.stringify({metrics, goals}));
+    }
+  }, [metrics, goals, profile]);
+
+  const handleProfileSubmit = async (formData) => {
+    // Send webhook if configured
+    if (GHL_WEBHOOK_URL) {
+      try {
+        const payload = {
+          ...formData,
+          timestamp: new Date().toISOString()
+        };
+        await fetch(GHL_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.log('Webhook call failed (optional):', e);
+      }
+    }
+
+    // Save profile locally
+    setProfile(formData);
+    localStorage.setItem('mdm_perfil', JSON.stringify(formData));
+    setShowRegistration(false);
+  };
+
+  if (showRegistration || !profile) {
+    return <RegistrationForm onSubmit={handleProfileSubmit} initialData={profile}/>;
+  }
+
+  const firstName = profile.nombreCompleto.split(' ')[0];
   const tabs=[
     {k:'config',l:'Mi Negocio',i:'settings'},
     {k:'dashboard',l:'Dashboard',i:'bar'},
@@ -469,12 +759,17 @@ function App() {
     {k:'calculadora',l:'Calculadora',i:'calc'},
     {k:'scorecard',l:'Scorecard',i:'target'}
   ];
+
   return (
     <div style={{background:C.bgDark,minHeight:'100vh',fontFamily:"'Inter',-apple-system,sans-serif",color:C.white}}>
       <div style={{background:C.bgCard,borderBottom:`1px solid ${C.border}`,padding:'14px 32px',display:'flex',justifyContent:'space-between',alignItems:'center',position:'sticky',top:0,zIndex:100}}>
         <div style={{display:'flex',alignItems:'center',gap:14}}>
-          <div style={{background:`linear-gradient(135deg,${C.gold},${C.orange})`,borderRadius:10,width:40,height:40,display:'flex',alignItems:'center',justifyContent:'center'}}><Icon type="zap" size={22} color={C.dark}/></div>
-          <div><div style={{fontSize:16,fontWeight:700,color:C.white}}>Sistema de Marketing y Ventas</div><div style={{fontSize:11,color:C.gray}}>Máquina del Dinero · Pablo Salguero | Automatización & IA</div></div>
+          <svg viewBox="0 0 60 50" style={{width:40,height:34}}>
+            <path d="M8 38C8 38 4 38 3 32C2 26 6 16 11 12C16 8 21 11 23 15L31 33C31 33 33 39 29 41C25 43 21 35 19 29L13 17" fill="none" stroke={C.gold} strokeWidth="4" strokeLinecap="round"/>
+            <path d="M23 15L31 33C33 39 37 41 39 37L47 9" fill="none" stroke={C.gold} strokeWidth="4" strokeLinecap="round"/>
+            <circle cx="45" cy="5" r="3" fill={C.gold}/>
+          </svg>
+          <div><div style={{fontSize:16,fontWeight:700,color:C.white}}>Hola, {firstName}</div><div style={{fontSize:11,color:C.gray}}>Sistema de Marketing y Ventas · Máquina del Dinero · <span style={{color:C.grayLight}}>by AI Business Growth</span></div></div>
         </div>
         <div style={{display:'flex',gap:4}}>
           {tabs.map(t=>{
@@ -486,14 +781,18 @@ function App() {
         </div>
       </div>
       <div style={{padding:'28px 32px',maxWidth:1320,margin:'0 auto'}}>
-        {tab==='config'&&<ConfigTab metrics={metrics} setMetrics={setMetrics} goals={goals} setGoals={setGoals}/>}
+        {tab==='config'&&<ConfigTab metrics={metrics} setMetrics={setMetrics} goals={goals} setGoals={setGoals} profile={profile} setShowRegistration={setShowRegistration} setProfile={setProfile}/>}
         {tab==='dashboard'&&<DashboardTab metrics={metrics} goals={goals}/>}
         {tab==='embudo'&&<EmbudoTab metrics={metrics} setMetrics={setMetrics}/>}
         {tab==='calculadora'&&<CalcTab/>}
         {tab==='scorecard'&&<ScorecardTab/>}
       </div>
       <div style={{borderTop:`1px solid ${C.border}`,padding:'14px 32px',textAlign:'center',fontSize:11,color:C.gray}}>
-        Metodología Máquina del Dinero de Álvaro Luque · Desarrollado por Pablo Salguero | Automatización & IA
+        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
+          <span>Metodología Máquina del Dinero de Álvaro Luque</span>
+          <span style={{color:C.border}}>·</span>
+          <span style={{display:'flex',alignItems:'center',gap:6}}>Desarrollado por <svg viewBox="0 0 100 50" style={{width:80,height:40,display:'inline-block',verticalAlign:'middle'}}><path d="M15 38C15 38 10 38 8 32C6 26 10 16 16 12C22 8 28 10 30 14L38 34C38 34 40 40 36 42C32 44 28 38 26 32L20 18" fill="none" stroke={C.white} strokeWidth="4" strokeLinecap="round"/><path d="M30 14L38 34C40 40 44 42 46 38L54 10" fill="none" stroke={C.white} strokeWidth="4" strokeLinecap="round"/><circle cx="52" cy="6" r="3" fill={C.white}/><text x="60" y="25" fill={C.white} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">BUSINESS</text><text x="60" y="35" fill={C.white} fontSize="8" fontWeight="700" fontFamily="Inter,sans-serif">GROWTH</text></svg></span>
+        </div>
       </div>
     </div>
   );
