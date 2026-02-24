@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-const CALENDAR_EMBED_URL = 'https://api.leadconnectorhq.com/widget/booking/ai-growth-calendar';
-const CALENDAR_URL = 'https://vendemasconai.com/';
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -27,6 +25,9 @@ const CALENDAR_URL = 'https://vendemasconai.com/';
 <body>
 <div id="root"></div>
 <script type="text/babel">
+  const CALENDAR_EMBED_URL = 'https://api.leadconnectorhq.com/widget/booking/ai-growth-calendar';
+  const CALENDAR_URL = 'https://vendemasconai.com/';
+
 const { useState, useMemo, useEffect } = React;
 const { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
 
