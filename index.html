@@ -687,9 +687,9 @@
     const CALENDAR_URL = 'https://vendemasconai.com/';
     const GHL_WEBHOOK_URL = 'https://hook.us2.make.com/j39s38fb47xpsuasrlvtpfv6ybylby4r';
 
-    const INDUSTRIES = ['Salud/Medicina', 'Fitness/Gimnasio', 'Restaurante/Alimentos', 'EducaciÃ³n', 'Servicios Profesionales', 'E-commerce', 'Bienes RaÃ­ces', 'Belleza/EstÃ©tica', 'TecnologÃ­a', 'Marketing/Publicidad', 'Otro'];
+    const INDUSTRIES = ['Salud/Medicina', 'Fitness/Gimnasio', 'Restaurante/Alimentos', 'EducaciÃÂ³n', 'Servicios Profesionales', 'E-commerce', 'Bienes RaÃÂ­ces', 'Belleza/EstÃÂ©tica', 'TecnologÃÂ­a', 'Marketing/Publicidad', 'Otro'];
 
-    const COUNTRIES = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guyana', 'Honduras', 'Jamaica', 'MÃ©xico', 'Nicaragua', 'PanamÃ¡', 'Paraguay', 'PerÃº', 'RepÃºblica Dominicana', 'Surinam', 'Uruguay', 'Venezuela', 'Estados Unidos', 'EspaÃ±a'];
+    const COUNTRIES = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guyana', 'Honduras', 'Jamaica', 'MÃÂ©xico', 'Nicaragua', 'PanamÃÂ¡', 'Paraguay', 'PerÃÂº', 'RepÃÂºblica Dominicana', 'Surinam', 'Uruguay', 'Venezuela', 'Estados Unidos', 'EspaÃÂ±a'];
 
     // AI BUSINESS GROWTH LOGO
     const LOGO_URL = 'https://assets.cdn.filesafe.space/dGHJkt1tVLPcTSFvaxx5/media/67c8ac9b-7108-4995-9787-c2de356939be.png';
@@ -724,24 +724,24 @@
           localStorage.setItem('currentUser', email);
           onLogin(users[email]);
         } else {
-          alert('Email o contraseÃ±a incorrectos');
+          alert('Email o contraseÃÂ±a incorrectos');
         }
       };
 
       const handleRegister = (e) => {
         e.preventDefault();
         if (formData.password !== formData.passwordConfirm) {
-          alert('Las contraseÃ±as no coinciden');
+          alert('Las contraseÃÂ±as no coinciden');
           return;
         }
         if (formData.password.length < 6) {
-          alert('La contraseÃ±a debe tener al menos 6 caracteres');
+          alert('La contraseÃÂ±a debe tener al menos 6 caracteres');
           return;
         }
 
         const users = JSON.parse(localStorage.getItem('users') || '{}');
         if (users[formData.email]) {
-          alert('Este email ya estÃ¡ registrado');
+          alert('Este email ya estÃÂ¡ registrado');
           return;
         }
 
@@ -773,7 +773,7 @@
           })
         }).catch(() => {});
 
-        alert('Registro exitoso! Ahora inicia sesiÃ³n');
+        alert('Registro exitoso! Ahora inicia sesiÃÂ³n');
         setIsRegister(false);
         setFormData({ nombre: '', email: '', telefono: '', empresa: '', password: '', passwordConfirm: '' });
       };
@@ -790,32 +790,32 @@
               <form onSubmit={handleRegister}>
                 <div className="form-group">
                   <label className="form-label">Nombre Completo</label>
-                  <input type="text" className="form-input" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required />
+                  <input type="text" className="form-input" name="name" autoComplete="name" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Email</label>
                   <input type="email" className="form-input" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">TelÃ©fono</label>
-                  <input type="tel" className="form-input" value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: e.target.value})} required />
+                  <label className="form-label">TelÃÂ©fono</label>
+                  <input type="tel" className="form-input" name="tel" autoComplete="tel" value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: e.target.value})} required />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Nombre de Empresa</label>
-                  <input type="text" className="form-input" value={formData.empresa} onChange={(e) => setFormData({...formData, empresa: e.target.value})} required />
+                  <input type="text" className="form-input" name="organization" autoComplete="organization" value={formData.empresa} onChange={(e) => setFormData({...formData, empresa: e.target.value})} required />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">ContraseÃ±a</label>
-                  <input type="password" className="form-input" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
+                  <label className="form-label">ContraseÃÂ±a</label>
+                  <input type="password" className="form-input" name="new-password" autoComplete="new-password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Confirmar ContraseÃ±a</label>
-                  <input type="password" className="form-input" value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} required />
+                  <label className="form-label">Confirmar ContraseÃÂ±a</label>
+                  <input type="password" className="form-input" name="new-password-confirm" autoComplete="new-password" value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} required />
                 </div>
                 <button type="submit" className="btn btn-primary">Crear Cuenta</button>
               </form>
               <div className="auth-link">
-                Â¿Ya tienes cuenta? <a onClick={() => setIsRegister(false)}>Inicia sesiÃ³n</a>
+                ÃÂ¿Ya tienes cuenta? <a onClick={() => setIsRegister(false)}>Inicia sesiÃÂ³n</a>
               </div>
             </div>
           </div>
@@ -828,24 +828,24 @@
             <div className="auth-logo">
               <AILogo width={80} height={80} />
               <div className="auth-title">Sistema de Marketing y Ventas AI Growth</div>
-              <div className="auth-subtitle">Inicia SesiÃ³n</div>
+              <div className="auth-subtitle">Inicia SesiÃÂ³n</div>
             </div>
             <form onSubmit={handleLogin}>
               <div className="form-group">
                 <label className="form-label">Email</label>
-                <input type="email" className="form-input" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <input type="email" className="form-input" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="form-group">
-                <label className="form-label">ContraseÃ±a</label>
-                <input type="password" className="form-input" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <label className="form-label">ContraseÃÂ±a</label>
+                <input type="password" className="form-input" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
-              <button type="submit" className="btn btn-primary">Inicia SesiÃ³n</button>
+              <button type="submit" className="btn btn-primary">Inicia SesiÃÂ³n</button>
             </form>
             <div className="auth-link">
-              <a onClick={() => alert('Contacta soporte en vendemasconai.com')}>Â¿Olvidaste tu contraseÃ±a?</a>
+              <a onClick={() => alert('Contacta soporte en vendemasconai.com')}>ÃÂ¿Olvidaste tu contraseÃÂ±a?</a>
             </div>
             <div className="auth-link">
-              Â¿No tienes cuenta? <a onClick={() => setIsRegister(true)}>RegÃ­strate</a>
+              ÃÂ¿No tienes cuenta? <a onClick={() => setIsRegister(true)}>RegÃÂ­strate</a>
             </div>
           </div>
         </div>
@@ -859,7 +859,7 @@
         <div>
           <div className="collapsible-header" onClick={() => setIsOpen(!isOpen)}>
             <div className="collapsible-title">{title}</div>
-            <div className={`collapsible-toggle ${isOpen ? 'open' : ''}`}>â¼</div>
+            <div className={`collapsible-toggle ${isOpen ? 'open' : ''}`}>Ã¢ÂÂ¼</div>
           </div>
           <div className={`collapsible-content ${isOpen ? 'open' : ''}`}>
             {children}
@@ -889,7 +889,7 @@
 
       const handleSaveNumbers = () => {
         localStorage.setItem(`numbers_${user.email}`, JSON.stringify(numbers));
-        alert('NÃºmeros actualizados');
+        alert('NÃÂºmeros actualizados');
       };
 
       const calcKPI = (meta, actual) => meta > 0 ? Math.round((actual / meta) * 100) : 0;
@@ -910,7 +910,7 @@
                   <input type="email" className="form-input" value={profileData.email} disabled />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">TelÃ©fono</label>
+                  <label className="form-label">TelÃÂ©fono</label>
                   <input type="tel" className="form-input" value={profileData.telefono} onChange={(e) => setProfileData({...profileData, telefono: e.target.value})} />
                 </div>
                 <div className="form-group">
@@ -926,9 +926,9 @@
                     </select>
                   </div>
                   <div className="form-group">
-                    <label className="form-label">PaÃ­s</label>
+                    <label className="form-label">PaÃÂ­s</label>
                     <select className="form-select" value={profileData.pais || ''} onChange={(e) => setProfileData({...profileData, pais: e.target.value})}>
-                      <option value="">Selecciona paÃ­s</option>
+                      <option value="">Selecciona paÃÂ­s</option>
                       {COUNTRIES.map(pais => <option key={pais} value={pais}>{pais}</option>)}
                     </select>
                   </div>
@@ -939,12 +939,12 @@
           </div>
 
           <div className="section">
-            <div className="section-title">Configura Tu MÃ¡quina</div>
+            <div className="section-title">Configura Tu MÃÂ¡quina</div>
             <div className="grid-2">
               <div>
                 <div className="section-title" style={{fontSize: 14, marginBottom: 16}}>Tus Metas del Mes</div>
                 <div className="form-group">
-                  <label className="form-label">Meta FacturaciÃ³n ($)</label>
+                  <label className="form-label">Meta FacturaciÃÂ³n ($)</label>
                   <input type="number" className="form-input" value={goals.metaFacturacion} onChange={(e) => setGoals({...goals, metaFacturacion: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
@@ -963,9 +963,9 @@
               </div>
 
               <div>
-                <div className="section-title" style={{fontSize: 14, marginBottom: 16}}>Tus NÃºmeros Reales</div>
+                <div className="section-title" style={{fontSize: 14, marginBottom: 16}}>Tus NÃÂºmeros Reales</div>
                 <div className="form-group">
-                  <label className="form-label">FacturaciÃ³n Actual ($)</label>
+                  <label className="form-label">FacturaciÃÂ³n Actual ($)</label>
                   <input type="number" className="form-input" value={numbers.facturacion} onChange={(e) => setNumbers({...numbers, facturacion: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
@@ -989,23 +989,23 @@
                   <input type="number" className="form-input" value={numbers.cierres} onChange={(e) => setNumbers({...numbers, cierres: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">InversiÃ³n en Marketing ($)</label>
+                  <label className="form-label">InversiÃÂ³n en Marketing ($)</label>
                   <input type="number" className="form-input" value={numbers.inversion} onChange={(e) => setNumbers({...numbers, inversion: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Contenido Publicado</label>
                   <input type="number" className="form-input" value={numbers.contenido} onChange={(e) => setNumbers({...numbers, contenido: parseFloat(e.target.value)})} />
                 </div>
-                <button className="btn btn-primary" onClick={handleSaveNumbers}>Guardar NÃºmeros</button>
+                <button className="btn btn-primary" onClick={handleSaveNumbers}>Guardar NÃÂºmeros</button>
               </div>
             </div>
           </div>
 
           <div className="section">
-            <div className="section-title">Salud de Tu MÃ¡quina</div>
+            <div className="section-title">Salud de Tu MÃÂ¡quina</div>
             <div className="grid-4">
               <div className="kpi-card">
-                <div className="kpi-label">FacturaciÃ³n vs Meta</div>
+                <div className="kpi-label">FacturaciÃÂ³n vs Meta</div>
                 <div className="kpi-value">{calcKPI(goals.metaFacturacion, numbers.facturacion)}%</div>
               </div>
               <div className="kpi-card">
@@ -1023,8 +1023,8 @@
             </div>
 
             <div className="tip-box">
-              <div className="tip-title">ð¡ Regla #1 de Luque</div>
-              <div className="tip-content">Si no conoces tus nÃºmeros, no tienes un negocio â tienes un hobby caro.</div>
+              <div className="tip-title">Ã°ÂÂÂ¡ Regla #1 de Luque</div>
+              <div className="tip-content">Si no conoces tus nÃÂºmeros, no tienes un negocio Ã¢ÂÂ tienes un hobby caro.</div>
             </div>
           </div>
         </div>
@@ -1050,19 +1050,19 @@
 
           <div className="section">
             <div className="section-title">Tu Cliente Ideal</div>
-            <textarea className="textarea-field" value={clienteIdeal} onChange={(e) => setClienteIdeal(e.target.value)} placeholder="Describe detalladamente quiÃ©n es tu cliente ideal..." />
+            <textarea className="textarea-field" value={clienteIdeal} onChange={(e) => setClienteIdeal(e.target.value)} placeholder="Describe detalladamente quiÃÂ©n es tu cliente ideal..." />
           </div>
 
           <div className="section">
             <div className="section-title">GPT Avatar Profile</div>
             <div className="card-gradient">
               <div className="card-title">Crea tu perfil de cliente ideal con IA</div>
-              <p style={{fontSize: 13, marginBottom: 16}}>Abre ChatGPT y crea un prompt detallado del perfil de tu cliente ideal. Luego pega el resultado aquÃ­.</p>
-              <button className="btn btn-secondary" onClick={() => window.open('https://chat.openai.com', '_blank')} style={{marginBottom: 16}}>
+              <p style={{fontSize: 13, marginBottom: 16}}>Abre ChatGPT y crea un prompt detallado del perfil de tu cliente ideal. Luego pega el resultado aquÃÂ­.</p>
+              <button className="btn btn-secondary" onClick={() => window.open('https://chatgpt.com/g/g-699e88d7b5288191bb3ec2cef8ae70cd-ai-growth-avatar-gpt', '_blank')} style={{marginBottom: 16}}>
                 Abrir ChatGPT
               </button>
             </div>
-            <textarea className="textarea-field" value={avatarProfile} onChange={(e) => setAvatarProfile(e.target.value)} placeholder="Pega aquÃ­ el resultado de ChatGPT..." />
+            <textarea className="textarea-field" value={avatarProfile} onChange={(e) => setAvatarProfile(e.target.value)} placeholder="Pega aquÃÂ­ el resultado de ChatGPT..." />
           </div>
 
           <div className="section">
@@ -1073,11 +1073,11 @@
                 <textarea className="textarea-field" value={contenido.autoridad} onChange={(e) => setContenido({...contenido, autoridad: e.target.value})} placeholder="Contenido que demuestra tu expertise..." style={{minHeight: 120}} />
               </div>
               <div>
-                <label className="form-label" style={{marginBottom: 12}}>ConexiÃ³n</label>
+                <label className="form-label" style={{marginBottom: 12}}>ConexiÃÂ³n</label>
                 <textarea className="textarea-field" value={contenido.conexion} onChange={(e) => setContenido({...contenido, conexion: e.target.value})} placeholder="Contenido que crea relaciones emocionales..." style={{minHeight: 120}} />
               </div>
               <div>
-                <label className="form-label" style={{marginBottom: 12}}>ConversiÃ³n</label>
+                <label className="form-label" style={{marginBottom: 12}}>ConversiÃÂ³n</label>
                 <textarea className="textarea-field" value={contenido.conversion} onChange={(e) => setContenido({...contenido, conversion: e.target.value})} placeholder="Contenido que vende y convierte..." style={{minHeight: 120}} />
               </div>
               <div>
@@ -1115,7 +1115,7 @@
 
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20, marginBottom: 24}}>
             <div className="kpi-card">
-              <div className="kpi-label">FacturaciÃ³n</div>
+              <div className="kpi-label">FacturaciÃÂ³n</div>
               <div className="kpi-value">${(numbers.facturacion / 1000).toFixed(1)}K</div>
             </div>
             <div className="kpi-card">
@@ -1137,7 +1137,7 @@
           </div>
 
           <div className="section">
-            <div className="section-title">FacturaciÃ³n Mensual</div>
+            <div className="section-title">FacturaciÃÂ³n Mensual</div>
             <div style={{width: '100%', height: 300, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', padding: '20px 0'}}>
               {monthlyData.map((d, i) => (
                 <div key={i} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8}}>
@@ -1170,7 +1170,7 @@
                   <div key={i} style={{marginBottom: 16}}>
                     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 4}}>
                       <span style={{fontSize: 13, fontWeight: 600}}>{stage.label}</span>
-                      <span style={{fontSize: 13, color: C.gray}}>{rate}% â {Math.round(stage.value)}</span>
+                      <span style={{fontSize: 13, color: C.gray}}>{rate}% Ã¢ÂÂ {Math.round(stage.value)}</span>
                     </div>
                     <div style={{height: 8, background: C.border, borderRadius: 4, overflow: 'hidden'}}>
                       <div style={{height: '100%', width: `${Math.min(100, (stage.value / (numbers.alcance || 1)) * 100)}%`, background: stage.color}} />
@@ -1182,27 +1182,27 @@
           </div>
 
           <div className="section">
-            <div className="section-title">DiagnÃ³stico AutomÃ¡tico</div>
+            <div className="section-title">DiagnÃÂ³stico AutomÃÂ¡tico</div>
             <div style={{marginTop: 16}}>
               {numbers.alcance === 0 && <div className="tip-box">
-                <div className="tip-title">â ï¸ Alerta: Alcance</div>
-                <div className="tip-content">Tu alcance es 0. Necesitas aumentar tu presencia digital y estrategia de marketing para generar mÃ¡s visibilidad.</div>
+                <div className="tip-title">Ã¢ÂÂ Ã¯Â¸Â Alerta: Alcance</div>
+                <div className="tip-content">Tu alcance es 0. Necesitas aumentar tu presencia digital y estrategia de marketing para generar mÃÂ¡s visibilidad.</div>
               </div>}
               {numbers.leads === 0 && numbers.alcance > 0 && <div className="tip-box">
-                <div className="tip-title">â ï¸ Alerta: Leads</div>
-                <div className="tip-content">Tienes alcance pero no leads. Revisa tu CTA (Call to Action) y optimiza tu pÃ¡gina de captura.</div>
+                <div className="tip-title">Ã¢ÂÂ Ã¯Â¸Â Alerta: Leads</div>
+                <div className="tip-content">Tienes alcance pero no leads. Revisa tu CTA (Call to Action) y optimiza tu pÃÂ¡gina de captura.</div>
               </div>}
               {conversionGeneral < 10 && numbers.leads > 0 && <div className="tip-box">
-                <div className="tip-title">â ï¸ Alerta: ConversiÃ³n Baja</div>
-                <div className="tip-content">Tu tasa de conversiÃ³n es baja. Necesitas mejorar tu pitch, calificaciÃ³n de leads o propuesta de valor.</div>
+                <div className="tip-title">Ã¢ÂÂ Ã¯Â¸Â Alerta: ConversiÃÂ³n Baja</div>
+                <div className="tip-content">Tu tasa de conversiÃÂ³n es baja. Necesitas mejorar tu pitch, calificaciÃÂ³n de leads o propuesta de valor.</div>
               </div>}
               {roas < 2 && numbers.inversion > 0 && <div className="tip-box">
-                <div className="tip-title">â ï¸ Alerta: ROAS Bajo</div>
-                <div className="tip-content">Tu retorno sobre inversiÃ³n es menor a 2x. Optimiza tus campaÃ±as o reduce gastos innecesarios.</div>
+                <div className="tip-title">Ã¢ÂÂ Ã¯Â¸Â Alerta: ROAS Bajo</div>
+                <div className="tip-content">Tu retorno sobre inversiÃÂ³n es menor a 2x. Optimiza tus campaÃÂ±as o reduce gastos innecesarios.</div>
               </div>}
               {numbers.alcance > 0 && numbers.leads > 0 && conversionGeneral >= 10 && roas >= 2 && <div className="tip-box">
-                <div className="tip-title">â Â¡Excelente desempeÃ±o!</div>
-                <div className="tip-content">Tus mÃ©tricas se ven bien. ContinÃºa optimizando y escalando tu mÃ¡quina de marketing.</div>
+                <div className="tip-title">Ã¢ÂÂ ÃÂ¡Excelente desempeÃÂ±o!</div>
+                <div className="tip-content">Tus mÃÂ©tricas se ven bien. ContinÃÂºa optimizando y escalando tu mÃÂ¡quina de marketing.</div>
               </div>}
             </div>
           </div>
@@ -1216,9 +1216,9 @@
 
       const stages = [
         {id: 'alcance', name: 'Alcance', value: numbers.alcance, color: C.blue, tip: 'Aumenta tu presencia y alcance con contenido de valor y anuncios pagos'},
-        {id: 'leads', name: 'Leads', value: numbers.leads, color: C.purple, tip: 'Mejora tu CTA y pÃ¡gina de captura para convertir alcance en leads'},
+        {id: 'leads', name: 'Leads', value: numbers.leads, color: C.purple, tip: 'Mejora tu CTA y pÃÂ¡gina de captura para convertir alcance en leads'},
         {id: 'prospectos', name: 'Prospectos Calificados', value: numbers.prospectos, color: C.gold, tip: 'Califica mejor tus leads para enfocar esfuerzos en prospectos reales'},
-        {id: 'llamadas', name: 'Llamadas', value: numbers.llamadas, color: C.orange, tip: 'Aumenta las llamadas realizadas para generar mÃ¡s conversaciones'},
+        {id: 'llamadas', name: 'Llamadas', value: numbers.llamadas, color: C.orange, tip: 'Aumenta las llamadas realizadas para generar mÃÂ¡s conversaciones'},
         {id: 'cierres', name: 'Cierres', value: numbers.cierres, color: C.green, tip: 'Mejora tu cierre y propuesta de valor para convertir llamadas en ventas'}
       ];
 
@@ -1243,7 +1243,7 @@
                       <span>{Math.round(stage.value)}</span>
                     </div>
                     <div className="funnel-info">
-                      {i > 0 && <span>Tasa de conversiÃ³n: {rate}% â¢ </span>}
+                      {i > 0 && <span>Tasa de conversiÃÂ³n: {rate}% Ã¢ÂÂ¢ </span>}
                       {stage.tip}
                     </div>
                   </div>
@@ -1252,9 +1252,9 @@
             </div>
 
             <div className="tip-box" style={{marginTop: 30}}>
-              <div className="tip-title">ð¡ OptimizaciÃ³n del Embudo</div>
+              <div className="tip-title">Ã°ÂÂÂ¡ OptimizaciÃÂ³n del Embudo</div>
               <div className="tip-content">
-                El embudo es donde sucede la magia. Cada etapa tiene un costo y una mÃ©trica. EnfÃ³cate en mejorar una etapa a la vez, comenzando con la que tiene la tasa de conversiÃ³n mÃ¡s baja.
+                El embudo es donde sucede la magia. Cada etapa tiene un costo y una mÃÂ©trica. EnfÃÂ³cate en mejorar una etapa a la vez, comenzando con la que tiene la tasa de conversiÃÂ³n mÃÂ¡s baja.
               </div>
             </div>
           </div>
@@ -1286,7 +1286,7 @@
               <div>
                 <div className="section-title" style={{fontSize: 14, marginBottom: 16}}>Inputs</div>
                 <div className="form-group">
-                  <label className="form-label">InversiÃ³n Mensual ($)</label>
+                  <label className="form-label">InversiÃÂ³n Mensual ($)</label>
                   <input type="number" className="form-input" value={inputs.inversion} onChange={(e) => setInputs({...inputs, inversion: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
@@ -1294,7 +1294,7 @@
                   <input type="number" className="form-input" value={inputs.cpl} onChange={(e) => setInputs({...inputs, cpl: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Tasa de ConversiÃ³n (%)</label>
+                  <label className="form-label">Tasa de ConversiÃÂ³n (%)</label>
                   <input type="number" className="form-input" value={inputs.conversionRate} onChange={(e) => setInputs({...inputs, conversionRate: parseFloat(e.target.value)})} />
                 </div>
                 <div className="form-group">
@@ -1349,7 +1349,7 @@
           <h1 className="page-title">Scorecard de Negocio</h1>
 
           <div className="section">
-            <div className="section-title" style={{marginBottom: 20}}>PuntÃºa cada Ã¡rea de 1 a 10</div>
+            <div className="section-title" style={{marginBottom: 20}}>PuntÃÂºa cada ÃÂ¡rea de 1 a 10</div>
             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 16, marginBottom: 24}}>
               {areas.map(area => (
                 <div key={area}>
@@ -1365,7 +1365,7 @@
           <div className="section">
             <div className="section-title">Score General</div>
             <div className="kpi-card">
-              <div className="kpi-label">PuntuaciÃ³n Promedio</div>
+              <div className="kpi-label">PuntuaciÃÂ³n Promedio</div>
               <div className="kpi-value">{avgScore}/10</div>
             </div>
 
@@ -1384,11 +1384,11 @@
             </div>
 
             <div className="tip-box" style={{marginTop: 20}}>
-              <div className="tip-title">ð Recomendaciones</div>
+              <div className="tip-title">Ã°ÂÂÂ Recomendaciones</div>
               <div className="tip-content">
-                {avgScore >= 8 ? 'Excelente desempeÃ±o general. MantÃ©n el momentum y optimiza las Ã¡reas con puntuaciÃ³n menor a 8.' :
-                avgScore >= 6 ? 'Buen desempeÃ±o. EnfÃ³cate en mejorar las Ã¡reas con puntuaciÃ³n menor a 6.' :
-                'Necesitas mejoras significativas. Comienza con el Ã¡rea mÃ¡s baja y mejora paso a paso.'}
+                {avgScore >= 8 ? 'Excelente desempeÃÂ±o general. MantÃÂ©n el momentum y optimiza las ÃÂ¡reas con puntuaciÃÂ³n menor a 8.' :
+                avgScore >= 6 ? 'Buen desempeÃÂ±o. EnfÃÂ³cate en mejorar las ÃÂ¡reas con puntuaciÃÂ³n menor a 6.' :
+                'Necesitas mejoras significativas. Comienza con el ÃÂ¡rea mÃÂ¡s baja y mejora paso a paso.'}
               </div>
             </div>
           </div>
@@ -1403,7 +1403,7 @@
           <h1 className="page-title">Agendar Llamada</h1>
 
           <div className="section">
-            <div className="section-title">Agenda tu Llamada EstratÃ©gica</div>
+            <div className="section-title">Agenda tu Llamada EstratÃÂ©gica</div>
             <p style={{marginBottom: 20, color: C.gray}}>Selecciona un horario disponible para una llamada de 30 minutos con nuestro equipo.</p>
 
             <div style={{marginBottom: 20}}>
@@ -1415,7 +1415,7 @@
             </div>
 
             <button className="btn btn-secondary" onClick={() => window.open(CALENDAR_URL, '_blank')}>
-              Abrir en Nueva PestaÃ±a
+              Abrir en Nueva PestaÃÂ±a
             </button>
           </div>
         </div>
@@ -1455,11 +1455,11 @@
         <div className="app-container">
           <div className="app-header">
             <div className="header-left">
-              <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>â°</button>
+              <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>Ã¢ÂÂ°</button>
               <AILogo width={36} height={36} />
               <div>
                 <div className="app-name">Sistema de Marketing y Ventas AI Growth</div>
-                <div style={{fontSize: 11, color: C.gray}}>Basado en las enseÃ±anzas de MÃ¡quina del Dinero de Luque</div>
+                <div style={{fontSize: 11, color: C.gray}}>Basado en las enseÃÂ±anzas de MÃÂ¡quina del Dinero de Luque</div>
               </div>
             </div>
             <div className="header-right">
@@ -1489,7 +1489,7 @@
           </div>
 
           <div style={{background: C.bgCard, borderTop: `1px solid ${C.border}`, padding: 16, textAlign: 'center', fontSize: 12, color: C.gray}}>
-            MetodologÃ­a MÃ¡quina del Dinero de Ãlvaro Luque Â· Desarrollado por <img src={LOGO_URL} alt="AI Business Growth" width={24} height={24} style={{display: 'inline-block', verticalAlign: 'middle', marginLeft: 6, filter: 'invert(1)'}} />
+            MetodologÃÂ­a MÃÂ¡quina del Dinero de ÃÂlvaro Luque ÃÂ· Desarrollado por <img src={LOGO_URL} alt="AI Business Growth" width={24} height={24} style={{display: 'inline-block', verticalAlign: 'middle', marginLeft: 6, filter: 'invert(1)'}} />
           </div>
         </div>
       );
